@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #FFFFFF;
+  --color-bg2: #F8F9FA;
+  --color-bg3: #F1F3F5;
+  --color-bg4: #E9ECEF;
+  --color-primary: #1A1A2E;
+  --color-primary-light: #16213E;
+  --color-accent: #0F3460;
+  --color-accent2: #E94560;
+  --color-text: #1A1A2E;
+  --color-text-muted: #6C757D;
+  --color-border: rgba(0,0,0,0.08);
+  --color-border2: rgba(0,0,0,0.05);
+  --color-gold: #F59E0B;
+  --color-green: #10B981;
+  --color-green-dim: rgba(16,185,129,0.1);
+  --color-red: #EF4444;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    --bg: #FFFFFF;               /* Background utama: putih bersih */
+    --bg2: #F8F9FA;              /* Background card: putih abu sangat muda */
+    --bg3: #F1F3F5;              /* Background input/secondary: abu sangat muda */
+    --bg4: #E9ECEF;              /* Background border area */
+    --primary: #1A1A2E;          /* Warna utama gelap: navy hitam */
+    --primary-light: #16213E;    /* Varian primary lebih muda */
+    --accent: #0F3460;           /* Aksen biru navy elegan */
+    --accent-dark: #0a2548;
+    --accent2: #E94560;          /* Aksen merah muda untuk highlight/CTA */
+    --text: #1A1A2E;             /* Teks utama: gelap */
+    --text-muted: #6C757D;       /* Teks sekunder: abu */
+    --border: rgba(0,0,0,0.08); /* Border halus */
+    --border2: rgba(0,0,0,0.05);/* Border lebih halus */
+    --gold: #F59E0B;             /* Bintang rating */
+    --green: #10B981;            /* Status aktif/sukses */
+    --green-dim: rgba(16,185,129,0.1);
+    --red: #EF4444;              /* Error/warning */
+    --shadow: 0 2px 20px rgba(0,0,0,0.08);
+    --shadow-hover: 0 8px 40px rgba(0,0,0,0.14);
+    --shadow-card: 0 1px 8px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  body {
+    @apply font-sans antialiased bg-[var(--bg)] text-[var(--text)];
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[var(--accent)] to-[var(--accent2)];
+  }
+  .bg-gradient-primary {
+    @apply bg-gradient-to-r from-[var(--accent)] to-[var(--accent2)];
+  }
+  .glass {
+    @apply bg-white/95 backdrop-blur-[20px] shadow-[0_2px_20px_rgba(0,0,0,0.06)] border-b border-[var(--border)];
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-shimmer {
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.animate-slideUp {
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 22s linear infinite;
+}
+
+@keyframes pulse-shadow {
+  0% { box-shadow: 0 0 0 0 rgba(15, 52, 96, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(15, 52, 96, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(15, 52, 96, 0); }
+}
+.animate-pulse-shadow {
+  animation: pulse-shadow 2s infinite;
+}
+
+/* Base modal transitions */
+.modal-overlay {
+  @apply fixed inset-0 bg-black/60 backdrop-blur-[8px] z-50 flex flex-col justify-end;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-sheet {
+  @apply bg-white w-full max-w-2xl mx-auto rounded-t-[22px] flex flex-col max-h-[85vh];
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal-overlay.open .modal-sheet {
+  transform: translateY(0);
+}
+.modal-handle {
+  @apply w-12 h-[5px] bg-black/10 rounded-full mx-auto mt-3 mb-4 shrink-0;
+}
+
